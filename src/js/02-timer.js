@@ -3,7 +3,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
 
-const selectors = {
+const refs = {
     input: document.querySelector('#datetime-picker'),
     button: document.querySelector('button[data-start]'),
     days: document.querySelector('[data-days]'),
@@ -15,11 +15,11 @@ const selectors = {
 
 let intervalId = null;
 let selectedDate = null;
-selectors.button.disabled = true;
+refs.button.disabled = true;
 
 
 
-flatpickr("#datetime-picker", {
+flatpickr(refs.input, {
 
   enableTime: true,
   time_24hr: true,
@@ -27,21 +27,21 @@ flatpickr("#datetime-picker", {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0].getTime() < Date.now()) {
-      selectors.button.disabled = true;
-      selectors.input.disabled = false;
+      refs.button.disabled = true;
+      refs.input.disabled = false;
       Notiflix.Notify.failure('Sorry, please select a date in the future(((');
     } else {
 
-       selectors.button.disabled = false;
-       selectors.input.disabled = true;
+       refs.button.disabled = false;
+       refs.input.disabled = true;
       Notiflix.Notify.success('The date is entered correctly, click the "Start" button!!!');
     }
-  
+    selectedDate = selectedDates[0];
    
   }
   });
 
-    selectors.button.addEventListener('click', handlerClick);
+    refs.button.addEventListener('click', handlerClick);
 
     function handlerClick() {
         timerStart.start();
@@ -52,8 +52,8 @@ const timerStart = {
       let currentDate = Date.now();
       const differenceTime = selectedDate - currentDate;
       changeTimer(convertMs(differenceTime));
-      selectors.button.disabled = true;
-      selectors.input.disabled = true;
+      refs.button.disabled = true;
+      refs.input.disabled = true;
       
       if (differenceTime <= 1000) {
         timerStart.stop();
@@ -62,18 +62,19 @@ const timerStart = {
     }, 1000);
   },
   stop() {
-    selectors.button.disabled = true;
-    selectors.input.disabled = false;
+    refs.button.disabled = true;
+    refs.input.disabled = false;
     clearInterval(intervalId);
-    return
+    Notiflix.Notify.success('The countdown is over!!!');
+    return;
   },
 };
 
 function changeTimer({ days, hours, minutes, seconds }) {
-  selectors.days.textContent = `${days}`;
-  selectors.hours.textContent = `${hours}`;
-  selectors.minutes.textContent = `${minutes}`;
-  selectors.seconds.textContent = `${seconds}`;
+  refs.days.textContent = `${days}`;
+  refs.hours.textContent = `${hours}`;
+  refs.minutes.textContent = `${minutes}`;
+  refs.seconds.textContent = `${seconds}`;
 };
 
   function addZero(value) {
