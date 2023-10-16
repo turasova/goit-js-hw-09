@@ -37,3 +37,29 @@ img {
   gap: 10px;
  
 }
+
+.form {
+  flex-wrap: wrap;
+  gap: 10px;
+  display: flex;
+  align-items: flex-end;
+  
+}
+.text-label {
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  flex-direction: column;
+  column-gap: 10px;
+}
+button {
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  background-color:aqua;
+}
+input {
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+}
