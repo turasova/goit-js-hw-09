@@ -27,13 +27,17 @@ flatpickr("#datetime-picker", {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0].getTime() < Date.now()) {
+      selectors.button.disabled = true;
+      selectors.input.disabled = false;
       Notiflix.Notify.failure('Sorry, please select a date in the future(((');
     } else {
+
+       selectors.button.disabled = false;
+       selectors.input.disabled = true;
       Notiflix.Notify.success('The date is entered correctly, click the "Start" button!!!');
     }
   
-    selectors.button.disabled = false;
-    selectors.input.disabled = true;
+   
   }
   });
 
