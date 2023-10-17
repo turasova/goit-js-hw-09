@@ -12,6 +12,8 @@ selectors.start.addEventListener('click', handlerClickStart);
 selectors.stop.addEventListener('click', handlerClickStop);
 let timerId = null;
 
+selectors.stop.disabled = true;
+  
 function handlerClickStart(evt) {
 
    selectors.start.disabled = true;
