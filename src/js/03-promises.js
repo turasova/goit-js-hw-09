@@ -21,9 +21,9 @@ const refs = {
   form: document.querySelector('.form'), 
 }
 
-refs.form.addEventListener('click', handlerClickCreate);
+refs.form.addEventListener('submit', handlerSubmitCreate);
 
-function handlerClickCreate(evt) {
+function handlerSubmitCreate(evt) {
 
   evt.preventDefault();
 
@@ -33,7 +33,7 @@ function handlerClickCreate(evt) {
   let inputAmount = Number(amount.value);
 
   for (let i = 1; i <= inputAmount; i += 1) {
-    inputDelay += inputStep;
+    
 
   createPromise(i, inputDelay)
   .then(({ position, delay }) => {
@@ -42,9 +42,9 @@ function handlerClickCreate(evt) {
   .catch(({ position, delay }) => {
     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
   });
-
+inputDelay += inputStep;
   }
-
+  evt.currentTarget.reset();
 }
 
 
